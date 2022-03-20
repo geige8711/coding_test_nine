@@ -1,15 +1,6 @@
 import express from "express";
-// import compression from "compression";  // compresses requests
-// import session from "express-session";
-// import bodyParser from "body-parser";
-// import lusca from "lusca";
-// import MongoStore from "connect-mongo";
-// import flash from "express-flash";
-// import path from "path";
-// import mongoose from "mongoose";
-// import passport from "passport";
-// import bluebird from "bluebird";
-// import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import { NextFunction, Request, Response } from "express";
+import HttpException from "./httpException";
 
 // Controllers (route handlers)
 import * as homeController from "./controllers/home";
@@ -32,7 +23,14 @@ app.use((req, res, next) => {
     }
     next();
   });
+
 app.use(express.json());
+app.use(( err:HttpException,_req:Request, res:Response, next:NextFunction) => {
+  if(err.status===400){
+    return res.status(400).json({error:"Could not decode request: JSON parsing failed"});
+  }
+  next();
+});
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);

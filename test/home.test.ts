@@ -33,9 +33,9 @@ describe("API test", () => {
         expect(response.status).toEqual(200);
         expect(response.body.response).toEqual(expectedResult);
     });
-    it("for POST request with correct json body, should return 400", async () => {
+    it("for POST request with correct json body, but no data return, should return 200", async () => {
         const response = await request(app).post("/").send(mockData2);
-        expect(response.status).toEqual(400);
-        expect(response.body.error).toEqual("Could not decode request: JSON parsing failed");
+        expect(response.status).toEqual(200);
+        expect(response.body.error).toEqual("Could not get channel data");
     });
 });

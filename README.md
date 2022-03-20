@@ -43,4 +43,4 @@ npm start
 
 ## Deployment 🌏
 
-Code is deployed to heroku https://nine-jsonservice.herokuapp.com/
+Code is deployed to heroku https://ninecode2022.herokuapp.com/
